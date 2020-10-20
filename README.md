@@ -1,4 +1,4 @@
-# ukb_decoder_utility
+# `ukb_decoder`
 
 **Currently untested, only use if you're confident in debugging python code**
 
