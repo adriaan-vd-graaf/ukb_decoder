@@ -89,23 +89,23 @@ class decoder:
             raise NotImplementedError
 
         field_of_interest = self.data_fields.data_field_by_id[field_id]
-        category = field_of_interest.category
+        value_type = field_of_interest.value_type
 
-        if category == "Date":
+        if value_type == "Date":
             raise NotImplementedError
-        elif category == 'Compound':
+        elif value_type == 'Compound':
             raise NotImplementedError
-        elif category == 'Time':
+        elif value_type == 'Time':
             raise NotImplementedError
-        elif category == 'Categorical multiple':
+        elif value_type == 'Categorical multiple':
             raise NotImplementedError
-        elif category == 'Text':
+        elif value_type == 'Text':
             raise NotImplementedError
-        elif category == 'Integer':
+        elif value_type == 'Integer':
             converted_data = self._decode_integer(field_of_interest, data_vector, )
-        elif category == 'Categorical single':
+        elif value_type == 'Categorical single':
             converted_data = self._decode_categorical_single(field_of_interest, data_vector)
-        elif category == 'Continuous':
+        elif value_type == 'Continuous':
             converted_data = self._decode_continuous(field_of_interest, data_vector)
         else:
             raise ValueError("Programming Error, Categories were not correcly encoded.")
