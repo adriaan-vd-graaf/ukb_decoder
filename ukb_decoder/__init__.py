@@ -158,7 +158,8 @@ class decoder:
                 for i, value in enumerate(tmp_data_vec):
                     if np.isnan(value):
                         continue #leave it as is.
-                    elif int(value) not in self.decoder_to_ordinal.keys():
+                    value = int(value)
+                    if value not in self.decoder_to_ordinal.keys():
                         print(f"Error: {field_of_interest.field_id} did not contain the value {int(value)} in the "
                                          f"set: {self.decoder_to_ordinal[field_coding].keys()}")
                         raise ValueError("Incorrect value found, see above")
