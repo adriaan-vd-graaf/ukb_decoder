@@ -141,15 +141,17 @@ class decoder:
         :return:
         """
 
+        field_coding = int(field_of_interest.coding)
+
         tmp_data_vec = copy.copy(data_vector)
         #remove nans.
         tmp_data_vec = [x if x not in self.single_category_ordinal_nans else self.single_category_ordinal_nans[x] for x in tmp_data_vec]
         if field_of_interest.coding in self.truly_categorical_single_categorical_values:
             raise NotImplementedError("Have not implemented categorical values yet")
 
-        elif field_of_interest.coding in (self.codes_usable_as_ordinal_values.union(set(self.decoder_to_ordinal.keys()))):
+        elif field_coding in self.codes_usable_as_ordinal_values.union(set(self.decoder_to_ordinal.keys())):
 
-            if field_of_interest.coding in self.single_category_ordinal_nans:
+            if field_coding in self.single_category_ordinal_nans:
                 return tmp_data_vec
             else:
                 for i, value in enumerate(tmp_data_vec):
