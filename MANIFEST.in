@@ -1,1 +1,2 @@
-include ukb_decoder/resources/*
+include ukb_decoder/resources/2020_10_15_data_dictionary_showcase.tsv
+include ukb_decoder/resources/2020_10_15_ukb_codings.tsv
