@@ -7,6 +7,9 @@ This is a package that is designed for personal use to decode ukb phenotypes as 
 Right now it can be difficult to know what all the values are from a UKB phenotype file, therefore you can decode your 
 phenotype field using this package. 
 
+Currently data_fields of the data type integer and continuous are supported. 
+Furthermore, some values of the 'categorical single' data type have been encoded, but not all. 
+
 ```
 import numpy as np
 import ukb_decoder
