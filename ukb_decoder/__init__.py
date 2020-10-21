@@ -151,7 +151,7 @@ class decoder:
 
         elif field_coding in self.codes_usable_as_ordinal_values.union(set(self.decoder_to_ordinal.keys())):
 
-            if field_coding in self.single_category_ordinal_nans:
+            if field_coding in self.codes_usable_as_ordinal_values:
                 return tmp_data_vec
             else:
                 for i, value in enumerate(tmp_data_vec):
