@@ -22,6 +22,7 @@ class decoder:
         }
 
         self.codes_usable_as_ordinal_values = {
+            7,        #0 - 1
             96,       # liking of food in a scale from 1 to 8
             339,      # codes indicating being bothered by something, -600  to -602. -600 means not bothered
             408,      # Pain scale 0 - 10, 0 is No pain
@@ -169,7 +170,7 @@ class decoder:
             else:
                 raise NotImplementedError("Programmer error, not implemented correctly")
         else:
-            raise NotImplementedError(f"Field with coding {field_of_interest.coding} not found in translation dictionary. "
+            raise NotImplementedError(f"Field with coding {field_coding} not found in translation dictionary. "
                                       f"Don't know what to do now")
 
     def _decode_continuous(self, field_of_interest, data_vector):
