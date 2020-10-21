@@ -118,7 +118,10 @@ class decoder:
         All integer decoders were
         '''
 
-        return self._decode_all_listed_codings_as_nan(field_of_interest, data_vector)
+        if field_of_interest.coding == '':
+            return data_vector
+        else:
+            return self._decode_all_listed_codings_as_nan(field_of_interest, data_vector)
 
 
     def _decode_categorical_single(self, field_of_interest, data_vector):
@@ -172,8 +175,10 @@ class decoder:
         :param data_vector: data vector
         :return: data_ce
         """
-
-        return self._decode_all_listed_codings_as_nan(field_of_interest, data_vector)
+        if field_of_interest.coding == '':
+            return data_vector
+        else:
+            return self._decode_all_listed_codings_as_nan(field_of_interest, data_vector)
 
     def _decode_all_listed_codings_as_nan(self, field_of_interest, data_vector):
         """
