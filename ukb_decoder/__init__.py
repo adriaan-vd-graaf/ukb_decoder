@@ -159,9 +159,9 @@ class decoder:
                         continue #leave it as is.
                     elif  value not in self.decoder_to_ordinal.keys():
                         raise ValueError(f"{field_of_interest.field_id} did not contain the value {value} in the "
-                                         f"set: {self.decoder_to_ordinal[field_of_interest.coding].keys()}")
+                                         f"set: {self.decoder_to_ordinal[field_coding].keys()}")
                     else:
-                        tmp_data_vec[i] = self.decoder_to_ordinal[field_of_interest.coding][value]
+                        tmp_data_vec[i] = self.decoder_to_ordinal[field_coding][value]
 
             return
         else:
