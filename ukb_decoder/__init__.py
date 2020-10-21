@@ -147,7 +147,7 @@ class decoder:
         if field_of_interest.coding in self.truly_categorical_single_categorical_values:
             raise NotImplementedError("Have not implemented categorical values yet")
 
-        elif field_of_interest.coding in (set(self.single_category_ordinal_nans).union(set(self.decoder_to_ordinal.keys()))):
+        elif field_of_interest.coding in (self.codes_usable_as_ordinal_values.union(set(self.decoder_to_ordinal.keys()))):
 
             if field_of_interest.coding in self.single_category_ordinal_nans:
                 return tmp_data_vec
