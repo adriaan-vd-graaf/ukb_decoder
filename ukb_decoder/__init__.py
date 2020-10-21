@@ -153,20 +153,21 @@ class decoder:
 
             if field_coding in self.codes_usable_as_ordinal_values:
                 return tmp_data_vec
-            else:
+            elif field_coding in self.decoder_to_ordinal.keys():
                 for i, value in enumerate(tmp_data_vec):
                     if np.isnan(value):
                         continue #leave it as is.
                     elif value not in self.decoder_to_ordinal.keys():
                         print(f"Errors {field_of_interest.field_id} did not contain the value {value} in the "
                                          f"set: {self.decoder_to_ordinal[field_coding].keys()}")
-                        exit()
+                        raise ValueError("Incorrect value found, see above")
 
-                        # raise ValueError("Incorrect value found, see above")
                     else:
                         tmp_data_vec[i] = self.decoder_to_ordinal[field_coding][value]
 
-            return
+                return tmp_data_vec
+            else:
+                raise NotImplementedError("Programmer error, not implemented correctly")
         else:
             raise NotImplementedError(f"Field with coding {field_of_interest.coding} not found in translation dictionary. "
                                       f"Don't know what to do now")
