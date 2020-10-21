@@ -159,7 +159,7 @@ class decoder:
                     if np.isnan(value):
                         continue #leave it as is.
                     elif int(value) not in self.decoder_to_ordinal.keys():
-                        print(f"Errors {field_of_interest.field_id} did not contain the value {value} in the "
+                        print(f"Error: {field_of_interest.field_id} did not contain the value {int(value)} in the "
                                          f"set: {self.decoder_to_ordinal[field_coding].keys()}")
                         raise ValueError("Incorrect value found, see above")
 
