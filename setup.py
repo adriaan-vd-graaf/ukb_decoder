@@ -11,5 +11,9 @@ setup(
     author='Adriaan van der Graaf',
     author_email='adriaan.vd.graaf@gmail.com',
     description='UKB field decoder',
-    install_requires = package_dependencies
+    install_requires = package_dependencies,
+
+    extras_require = {
+                     'dev': ['check-manifest'],
+                 },
 )
