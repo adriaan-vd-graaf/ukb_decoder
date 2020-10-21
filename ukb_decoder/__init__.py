@@ -77,6 +77,7 @@ class decoder:
             }
         }
 
+
         #these codes should not overlap.
         assert(len(self.codes_usable_as_ordinal_values & self.decoder_to_ordinal.keys()) == 0)
         assert(len(self.codes_usable_as_ordinal_values & self.truly_categorical_single_categorical_values) == 0)
@@ -87,7 +88,7 @@ class decoder:
         if converter is not None:
             raise NotImplementedError
 
-        field_of_interest = self.data_fields.data_fields[field_id]
+        field_of_interest = self.data_fields.data_field_by_id[field_id]
         category = field_of_interest.category
 
         if category == "Date":
@@ -142,7 +143,9 @@ class decoder:
         tmp_data_vec = [x if x not in self.single_category_ordinal_nans else self.single_category_ordinal_nans[x] for x in tmp_data_vec]
         if field_of_interest.coding in self.truly_categorical_single_categorical_values:
             raise NotImplementedError("Have not implemented categorical values yet")
-        elif field_of_interest.coding in (self.decoder_to_ordinal.keys() |  self.single_category_ordinal_nans):
+
+        elif field_of_interest.coding in (self.decoder_to_ordinal.keys() | self.single_category_ordinal_nans):
+
             if field_of_interest in self.single_category_ordinal_nans:
                 return tmp_data_vec
             else:
@@ -151,10 +154,13 @@ class decoder:
                         continue #leave it as is.
                     elif  value not in self.decoder_to_ordinal.keys():
                         raise ValueError(f"{field_of_interest.field_id} did not contain the value {value} in the "
-                                         f"set: {self.decoder_to_ordinal[field_of_interest.field_id].keys()}")
+                                         f"set: {self.decoder_to_ordinal[field_of_interest.coding].keys()}")
                     else:
-                        tmp_data_vec[i] = self.decoder_to_ordinal[field_of_interest.field_id][value]
-            return tmp_data_vec
+                        tmp_data_vec[i] = self.decoder_to_ordinal[field_of_interest.coding][value]
+
+            return
+        else:
+            raise NotImplementedError("Field not found")
 
     def _decode_continuous(self, field_of_interest, data_vector):
         """
