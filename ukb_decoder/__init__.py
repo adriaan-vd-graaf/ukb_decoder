@@ -149,7 +149,7 @@ class decoder:
 
         elif field_of_interest.coding in (self.single_category_ordinal_nans.union(self.decoder_to_ordinal.keys())):
 
-            if field_of_interest in self.single_category_ordinal_nans:
+            if field_of_interest.coding in self.single_category_ordinal_nans:
                 return tmp_data_vec
             else:
                 for i, value in enumerate(tmp_data_vec):
@@ -163,7 +163,8 @@ class decoder:
 
             return
         else:
-            raise NotImplementedError("Field not found")
+            raise NotImplementedError(f"Field with coding {field_of_interest.coding} not found in translation dictionary. "
+                                      f"Don't know what to do now")
 
     def _decode_continuous(self, field_of_interest, data_vector):
         """
