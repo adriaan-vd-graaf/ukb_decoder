@@ -75,6 +75,16 @@ class decoder:
             },
             100017: {  # intake, 0 is not encoded. So may have to revisit how to perform that.
                 np.nan: 0, 1: 1, 2: 2, 300: 3, 555: 0.5, 444: 0
+            },
+            #new
+            100394: {
+                -3: np.nan, 1:0, 2:1, 3:2, 4:4
+            },
+            100400: {
+                -3: np.nan, 0:0, 1:1, 2:1
+            },
+            100401: {
+                -3: np.nan,-1:np.nan, 1:0, 2:1, 3:2
             }
         }
 
@@ -84,12 +94,12 @@ class decoder:
         assert(len(self.codes_usable_as_ordinal_values & self.truly_categorical_single_categorical_values) == 0)
         assert(len(self.decoder_to_ordinal.keys() & self.truly_categorical_single_categorical_values) == 0)
 
-    def decode_field(self, field_id, data_vector = None, converter = None):
+    def decode_field(self, field_id, data_vector=None, converter=None):
 
         if converter is not None:
             raise NotImplementedError
 
-        field_of_interest = self.data_fields.data_field_by_id[field_id]
+        field_of_interest = self.data_fields[field_id]
         value_type = field_of_interest.value_type
 
         if value_type == "Date":
