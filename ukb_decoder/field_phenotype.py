@@ -4,22 +4,26 @@ from . import *
 
 all_fields = AllDataFields()
 
+path, category, field_id, field, participants, items,
+stability, value_type, units, item_type, strata, sexed, instances,
+array, coding, notes, link
+
 class AllPhenotypesPerField(DataField):
     def __init__(self, field_id: str, n_participants: int):
         this_field = all_fields[field_id]
-        super().__init__(self, this_field.path, this_field.category, this_field.field_id, this_field.field,
+        super().__init__(this_field.path, this_field.category, this_field.field_id, this_field.field,
                          this_field.participants, this_field.items, this_field.stability, this_field.value_type,
-                         this_field.units, this_field.item_type, this_field.strata, this_field.instances,
+                         this_field.units, this_field.item_type, this_field.strata, this_field.sexed, this_field.instances,
                          this_field.array, this_field.coding, this_field.notes, this_field.link)
 
-        if not self.item_type in {"Continuous", "Integer"}:
+        if not self.value_type in {"Continuous", "Integer"}:
             raise ValueError(f'{self.item_type} is not implemented')
 
         self.n_participants = n_participants
 
-        if self.item_type == "Continuous":
+        if self.value_type == "Continuous":
             self.dtype = float
-        elif self.item_type == "Integer":
+        elif self.value_type == "Integer":
             self.dtype = int
 
         self.phenotype_matrix = np.zeros((self.n_participants, self.instances*self.array), dtype=self.dtype)
