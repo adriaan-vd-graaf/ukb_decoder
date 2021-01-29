@@ -16,6 +16,9 @@ class AllPhenotypesPerField(DataField):
                          this_field.units, this_field.item_type, this_field.strata, this_field.sexed, this_field.instances,
                          this_field.array, this_field.coding, this_field.notes, this_field.link)
 
+        self.instances = int(self.instances)
+        self.array = int(self.array)
+
         if not self.value_type in {"Continuous", "Integer"}:
             raise ValueError(f'{self.item_type} is not implemented')
 
