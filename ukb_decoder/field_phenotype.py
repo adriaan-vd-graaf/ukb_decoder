@@ -1,7 +1,6 @@
 from . data_fields import DataField, AllDataFields
-from . import decoder
 import numpy as np
-
+from . import *
 
 all_fields = AllDataFields()
 

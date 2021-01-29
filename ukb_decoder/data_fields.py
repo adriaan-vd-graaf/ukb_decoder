@@ -70,4 +70,7 @@ class DataField:
     def __str__(self):
         return f'{self.field_id}: {self.field}'
 
+    def __repr__(self):
+        return f'DataField class representing: {self.field_id}: {self.field}'
+
 
