@@ -71,4 +71,4 @@ class AllPhenotypesPerField(DataField):
         
         print(f'{super.__str__(self)}, instance: {instance}, array: {array}, containing {self.n_participants} individuals')
         print(f'mean: {mean:.3e}, sd: {std:.3e}, range: [{min:.3e} - {max:.3e}]')
-        print(f'deciles: {deciles}}')
+        print(f'deciles: {deciles}')
