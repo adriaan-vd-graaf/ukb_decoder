@@ -2,6 +2,7 @@ import numpy as np
 import copy
 from . data_codings import *
 from . data_fields import *
+from . field_phenotype import *
 
 class decoder:
 
@@ -95,6 +96,9 @@ class decoder:
         assert(len(self.decoder_to_ordinal.keys() & self.truly_categorical_single_categorical_values) == 0)
 
     def decode_field(self, field_id, data_vector=None, converter=None):
+        return self.decode_field_into_numeric(field_id, data_vector, converter)
+
+    def decode_field_into_numeric(self, field_id, data_vector=None, converter=None):
 
         if converter is not None:
             raise NotImplementedError
@@ -214,3 +218,50 @@ class decoder:
         new_data = [x if x not in nan_values else np.nan for x in copy.copy(data_vector)]
 
         return new_data
+
+
+    def print_decoding(self, field_id):
+
+        field_of_interest = self.data_fields[field_id]
+        value_type = field_of_interest.value_type
+
+        if value_type == "Date":
+            raise NotImplementedError
+        elif value_type == 'Compound':
+            raise NotImplementedError
+        elif value_type == 'Time':
+            raise NotImplementedError
+        elif value_type == 'Categorical multiple':
+            raise NotImplementedError
+        elif value_type == 'Text':
+            raise NotImplementedError
+        elif value_type == 'Integer':
+            return "Integer"
+        elif value_type == 'Categorical single':
+            return self._print_categorical_single_decoding(field_of_interest)
+        elif value_type == 'Continuous':
+            return "Continuous"
+        else:
+            raise ValueError("Programming Error, Categories were not correcly encoded.")
+
+
+    def _print_categorical_single_decoding(self,field_of_interest):
+
+
+        field_coding = int(field_of_interest.coding)
+
+        #remove nans.
+        if field_of_interest.coding in self.truly_categorical_single_categorical_values:
+            raise NotImplementedError("Have not implemented categorical values yet")
+
+        elif field_coding in self.codes_usable_as_ordinal_values.union(set(self.decoder_to_ordinal.keys())):
+
+            if field_coding in self.codes_usable_as_ordinal_values:
+                return "Ordinal interpreted as integer values"
+            elif field_coding in self.decoder_to_ordinal.keys():
+                return f'Custom encoding: {self.decoder_to_ordinal[field_coding]}'
+            else:
+                raise NotImplementedError("Programmer error, not implemented correctly")
+        else:
+            raise NotImplementedError(f"Field with coding {field_coding} not found in translation dictionary. "
+                                      f"Don't know what to do now")
