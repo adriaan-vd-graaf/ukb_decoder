@@ -4,9 +4,9 @@ from . import *
 
 all_fields = AllDataFields()
 
-path, category, field_id, field, participants, items,
-stability, value_type, units, item_type, strata, sexed, instances,
-array, coding, notes, link
+# path, category, field_id, field, participants, items,
+# stability, value_type, units, item_type, strata, sexed, instances,
+# array, coding, notes, link
 
 class AllPhenotypesPerField(DataField):
     def __init__(self, field_id: str, n_participants: int):
