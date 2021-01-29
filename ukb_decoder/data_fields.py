@@ -71,6 +71,6 @@ class DataField:
         return f'{self.field_id}: {self.field}'
 
     def __repr__(self):
-        return f'DataField class representing: {self.field_id}: {self.field}'
+        return f'{self.__class__.__name__} class representing: {self.field_id}: {self.field}'
 
 
