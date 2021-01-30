@@ -93,7 +93,7 @@ class AllPhenotypesPerField(DataField):
             for array in range(self.array):
                 if self.phenotypes_added[i]:
                     full_string += self.summary_stats_of_array(instance, array)
-            i += 1
+                i += 1
 
         return full_string
 
