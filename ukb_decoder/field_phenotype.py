@@ -95,6 +95,7 @@ class AllPhenotypesPerField(DataField):
                     full_string += self.summary_stats_of_array(instance, array)
             i += 1
 
+        return full_string
 
     def apply_to_available_phenotypes(self, func1d, *args, **kwargs):
         """
