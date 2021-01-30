@@ -120,10 +120,14 @@ class AllPhenotypesPerField(DataField):
             raise ValueError(f"pandas df shape ({pandas_df.shape}) dif not match the number of participants: {self.n_participants}")
 
         colnames = [str(x) for x in pandas_df.columns]
+
+        print(self.field_id)
+        print(colnames)
         fields_instance_array = [
             (x.split("-")[0], x.split("-")[1].split('.')[0], x.split("-")[1].split('.')[1])
             for x in colnames if x != "eid"
         ]
+        print(fields_instance_array)
 
         for field, instance, array in fields_instance_array:
             if field == self.field_id:
