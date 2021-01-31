@@ -222,19 +222,14 @@ class UKBICD10Pheno(PhenotypesPerField):
         for i in range(self.n_participants):
             if diagnosis_list[i] == 'nan':
                 if days_since_diagnosis[i] != 'nan':
-                    print(date_list[i])
-                    print(diagnosis_list[i])
-                    print(diagnosis_series.loc[i])
-                    print(date_of_diagnosis_series[i])
-                    print(month_year_of_birth[i])
-                    raise ValueError(f"Programmer or data error, encountered a diagnosis nan, with a non nan date, on line {i}")
-
+                    print(f'Warning, Found a date of diagnosis, without a ICD10 code on line {i}, {instance}.{array}, date was {date_list[i]}, continueing.')
                 continue
 
             else:
                 if days_since_diagnosis[i] == 'nan' and month_year_of_birth[i] != 'nan':
-                    raise ValueError(f"Programmer or data error, encountered a date nan with a diagnosis on line {i}")
-
+                    print(
+                        f'Found an ICD10 code diagnosis, without a date line {i}, {instance}.{array}, ICD10code was {diagnosis_list[i]}, continueing.')
+                    continue
                 self.indice_and_diagnoses[i][diagnosis_list[i]] = days_since_diagnosis[i]
                 self.diagnoses_count[diagnosis_list[i]] += 1
 
