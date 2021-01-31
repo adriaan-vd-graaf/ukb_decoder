@@ -202,7 +202,7 @@ class UKBICD10Pheno(PhenotypesPerField):
 
         # Unknown what the day of birth is, so hard-coded to 1.
 
-        birthdates = {i: datetime.date(year=int(year_dat[i]), month=int(months_dat[i]), day=1) for i in
+        birthdates = {i: datetime.date(year=int(float(year_dat[i])), month=int(float(months_dat[i])), day=1) for i in
                       range(self.n_participants) if year_dat[i] != 'nan' and months_dat[i] != 'nan'}
 
         return birthdates
