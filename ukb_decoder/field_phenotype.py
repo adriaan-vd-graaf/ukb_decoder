@@ -221,7 +221,7 @@ class UKBICD10Pheno(PhenotypesPerField):
         
         for i in range(self.n_participants):
             if diagnosis_list[i] == 'nan':
-                if days_since_diagnosis[i] != 'nan':
+                if days_since_diagnosis[i] != 'nan' and month_year_of_birth[i] != 'nan':
                     raise ValueError(f"Programmer or data error, encountered a diagnosis nan, with a non nan date, on line {i}")
                 continue
 
