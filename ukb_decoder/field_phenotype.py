@@ -162,15 +162,14 @@ class PhenotypesPerField(DataField):
 
 
 
-class UKBICD10Pheno(DataField, PhenotypesPerField):
+class UKBICD10Pheno(PhenotypesPerField):
     def __init__(self, n_participants: int):
 
         this_field = all_fields['41270'] #all ICD10 diagnoses
         DataField.__init__(self, this_field.path, this_field.category, this_field.field_id, this_field.field,
                            this_field.participants, this_field.items, this_field.stability, this_field.value_type,
                            this_field.units, this_field.item_type, this_field.strata, this_field.sexed,
-                           this_field.instances,
-                           this_field.array, this_field.coding, this_field.notes, this_field.link)
+                           this_field.instances, this_field.array, this_field.coding, this_field.notes, this_field.link)
 
         self.dates_of_diagnosis_field = all_fields['41280']
 
@@ -267,7 +266,7 @@ class UKBICD10Pheno(DataField, PhenotypesPerField):
     def apply_func_to_pheno_mat(self, func1d, rm_nas=True, *args, **kwargs):
         raise NotImplementedError()
 
-    def summary_stats_of_array(self):
+    def summary_stats_of_array(self, indice, array):
         raise NotImplementedError()
 
     @property
