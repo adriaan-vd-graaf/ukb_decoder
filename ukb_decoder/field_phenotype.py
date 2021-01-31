@@ -212,7 +212,7 @@ class UKBICD10Pheno(PhenotypesPerField):
                                    diagnosis_series: pd.DataFrame,
                                    date_of_diagnosis_series: pd.DataFrame, month_year_of_birth: dict):
 
-        diagnosis_list = diagnosis_series.astype(str).tolist() #this makes the nan values a string of 'nan'
+        diagnosis_list = diagnosis_series.astype(str).tolist() # This makes the nan values a string of 'nan'
         date_list = [str(x).split('-') for x in date_of_diagnosis_series.astype(str).tolist()]
         date_list = [datetime.date(year=int(x[0]), month=int(x[1]), day=int(x[2])) if x[0] != 'nan' else 'nan' for x in date_list]
         days_since_diagnosis = [(x - month_year_of_birth[i]).days
@@ -221,12 +221,18 @@ class UKBICD10Pheno(PhenotypesPerField):
         
         for i in range(self.n_participants):
             if diagnosis_list[i] == 'nan':
-                if days_since_diagnosis[i] != 'nan' and month_year_of_birth[i] != 'nan':
+                if days_since_diagnosis[i] != 'nan':
+                    print(date_list[i])
+                    print(diagnosis_list[i])
+                    print(diagnosis_series.loc[i])
+                    print(date_of_diagnosis_series[i])
+                    print(month_year_of_birth[i])
                     raise ValueError(f"Programmer or data error, encountered a diagnosis nan, with a non nan date, on line {i}")
+
                 continue
 
             else:
-                if days_since_diagnosis[i] == 'nan':
+                if days_since_diagnosis[i] == 'nan' and month_year_of_birth[i] != 'nan':
                     raise ValueError(f"Programmer or data error, encountered a date nan with a diagnosis on line {i}")
 
                 self.indice_and_diagnoses[i][diagnosis_list[i]] = days_since_diagnosis[i]
