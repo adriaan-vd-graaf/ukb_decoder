@@ -197,12 +197,12 @@ class UKBICD10Pheno(PhenotypesPerField):
         month_col = '52-0.0'
         year_col = '34-0.0'
 
-        months_dat = pandas_df[month_col].tolist()
-        year_dat = pandas_df[year_col].tolist()
+        months_dat = pandas_df[month_col].astype(str).tolist()
+        year_dat = pandas_df[year_col].astype(str).tolist()
 
         # Unknown what the day of birth is, so hard-coded to 1.
 
-        birthdates = {i: datetime.date(year=year_dat[i], month=months_dat[i], day=1) for i in
+        birthdates = {i: datetime.date(year=int(year_dat[i]), month=int(months_dat[i]), day=1) for i in
                       range(self.n_participants)}
 
         return birthdates
