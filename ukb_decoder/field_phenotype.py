@@ -203,7 +203,7 @@ class UKBICD10Pheno(PhenotypesPerField):
         # Unknown what the day of birth is, so hard-coded to 1.
 
         birthdates = {i: datetime.date(year=int(year_dat[i]), month=int(months_dat[i]), day=1) for i in
-                      range(self.n_participants)}
+                      range(self.n_participants) if year_dat[i] != 'nan' and months_dat[i] != 'nan'}
 
         return birthdates
 
@@ -215,7 +215,9 @@ class UKBICD10Pheno(PhenotypesPerField):
         diagnosis_list = diagnosis_series.astype(str).tolist() #this makes the nan values a string of 'nan'
         date_list = [str(x).split('-') for x in date_of_diagnosis_series.astype(str).tolist()]
         date_list = [datetime.date(year=int(x[0]), month=int(x[1]), day=int(x[2])) if x != 'nan' else 'nan' for x in date_list]
-        days_since_diagnosis = [(x - month_year_of_birth[i]).days if x != 'nan' else 'nan' for i, x in enumerate(date_list) ]
+        days_since_diagnosis = [(x - month_year_of_birth[i]).days
+                                if (x != 'nan' or month_year_of_birth[i] != 'nan') else 'nan'
+                                for i, x in enumerate(date_list)]
         
         for i in range(self.n_participants):
             if diagnosis_list[i] == 'nan':
