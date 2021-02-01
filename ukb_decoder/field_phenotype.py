@@ -212,9 +212,9 @@ class UKBICD10Pheno(PhenotypesPerField):
         return birthdates
 
 
-    def _add_instance_to_diagnoses(self, instance: int, array: int,
-                                   diagnosis_series: pd.DataFrame,
-                                   date_of_diagnosis_series: pd.DataFrame, month_year_of_birth: dict):
+    def _add_instance_array_value_to_diagnoses(self, instance: int, array: int,
+                                               diagnosis_series: pd.DataFrame,
+                                               date_of_diagnosis_series: pd.DataFrame, month_year_of_birth: dict):
 
         diagnosis_dict = {i : x for i, x in enumerate(diagnosis_series.astype(str).tolist()) if x != 'nan'} # This makes the nan values a string of 'nan'
         date_dict = {i: str(x).split('-') for i, x in enumerate(date_of_diagnosis_series.astype(str).tolist()) if x != 'nan'}
@@ -255,15 +255,15 @@ class UKBICD10Pheno(PhenotypesPerField):
 
         for field, instance, array in fields_instance_array:
             if field == self.field_id:
-                self._add_instance_to_diagnoses(int(instance), int(array),
-                                         pandas_df[f'{field}-{instance}.{array}'],
-                                         pandas_df[f'{self.dates_of_diagnosis_field.field_id}-{instance}.{array}'],
-                                         month_year_of_birth
-                                         )
+                self._add_instance_array_value_to_diagnoses(int(instance), int(array),
+                                                            pandas_df[f'{field}-{instance}.{array}'],
+                                                            pandas_df[f'{self.dates_of_diagnosis_field.field_id}-{instance}.{array}'],
+                                                            month_year_of_birth
+                                                            )
 
 
-    def make_cc_and_date_pheno_mat(self, include: set, exclude=None, regex=False, exclude_from_cases=False,
-                       date_to_compare = datetime.date(year=2020, month=11, day=30) ):
+    def make_cases_status_and_date_pheno_mat(self, include: set, exclude=None, regex=False, exclude_from_cases=True,
+                                             date_to_compare = datetime.date(year=2020, month=11, day=30) ):
         """
         Will return an (self.n_individuals, 2) shaped matrix containing the case status in the first column
         The age will be in the second column if the individual is a control.
@@ -342,8 +342,6 @@ class UKBICD10Pheno(PhenotypesPerField):
                     phenotype_matrix[indice, :] = np.nan
 
         return phenotype_matrix
-
-
 
 
     def add_phenotype_array(self, instance: int, array: int, phenotype_vector: list):
