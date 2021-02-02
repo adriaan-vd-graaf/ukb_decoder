@@ -1,7 +1,7 @@
 from . data_fields import DataField, AllDataFields
 import numpy as np
 import pandas as pd
-from . import Decoder
+from . decoder import Decoder
 import icd10
 import re
 import datetime
