@@ -29,10 +29,7 @@ class QuantPhenoField(DataField):
 
         self.n_participants = n_participants
 
-        if self.value_type == "Continuous":
-            self.dtype = float
-        elif self.value_type in {"Integer", "Categorical single"}:
-            self.dtype = int
+        self.dtype=float
 
         self.phenotype_matrix = np.zeros((self.n_participants, self.instances*self.array), dtype=self.dtype)
         self.phenotype_matrix[:, :] = np.nan
