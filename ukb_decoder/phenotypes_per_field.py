@@ -89,9 +89,6 @@ class QuantPhenoField(DataField):
             if rm_nas:
                 nas = np.isnan(self.phenotype_matrix[i,:])
 
-                print(self.phenotype_matrix[i, :])
-                print(nas)
-
                 if np.all(nas):
                     array[i] = np.nan
                 else:
