@@ -1,7 +1,7 @@
 
 import copy
 import numpy as np
-from . field_phenotype import *
+from . phenotypes_per_field import *
 from . import data_codings
 from . import data_fields
 
@@ -296,4 +296,8 @@ class Decoder:
             raise NotImplementedError(f"Field with coding {field_coding} not found in translation dictionary. "
                                       f"Don't know what to do now")
 
-decoder = Decoder
+
+
+
+class decoder(Decoder):
+    pass

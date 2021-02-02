@@ -1,7 +1,7 @@
 from . data_fields import DataField, AllDataFields
 import numpy as np
 import pandas as pd
-from . decoder import *
+from . import Decoder
 import icd10
 import re
 import datetime
@@ -55,7 +55,7 @@ class QuantPhenoField(DataField):
 
         self.phenotype_matrix[:, index] = np.asarray(
                                     self.decoder.decode_field(field_id=self.field_id, data_vector=phenotype_vector),
-                                    dtype=float)
+                                    dtype=self.dtype)
 
         self.phenotypes_added[index] =True
 
