@@ -53,7 +53,9 @@ class QuantPhenoField(DataField):
         #instance starts at 1 and array start at 0
         index = self._index(instance, array)
 
-        self.phenotype_matrix[:, index] = self.decoder.decode_field(field_id=self.field_id, data_vector=phenotype_vector)
+        self.phenotype_matrix[:, index] = np.asarray(
+                                    self.decoder.decode_field(field_id=self.field_id, data_vector=phenotype_vector),
+                                    dtype=float)
 
         self.phenotypes_added[index] =True
 
