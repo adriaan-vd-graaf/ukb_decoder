@@ -13,7 +13,7 @@ all_fields = AllDataFields()
 # stability, value_type, units, item_type, strata, sexed, instances,
 # array, coding, notes, link
 
-class PhenotypesPerField(DataField):
+class QuantPhenoField(DataField):
     def __init__(self, field_id: str, n_participants: int):
         this_field = all_fields[field_id]
         super().__init__(this_field.path, this_field.category, this_field.field_id, this_field.field,
@@ -163,7 +163,7 @@ class PhenotypesPerField(DataField):
 
 
 
-class UKBICD10Pheno(PhenotypesPerField):
+class UKBICD10PhenoField(QuantPhenoField):
     def __init__(self, n_participants: int):
 
         this_field = all_fields['41270'] #all ICD10 diagnoses
@@ -263,7 +263,7 @@ class UKBICD10Pheno(PhenotypesPerField):
 
 
     def make_cases_status_and_date_pheno_mat(self, include: set, exclude=None, regex=False, exclude_from_cases=True,
-                                             date_to_compare = datetime.date(year=2020, month=11, day=30) ):
+                                             date_to_compare = datetime.date(year=2020, month=11, day=30)):
         """
         Will return an (self.n_individuals, 2) shaped matrix containing the case status in the first column
         The age will be in the second column if the individual is a control.
@@ -286,7 +286,6 @@ class UKBICD10Pheno(PhenotypesPerField):
 
         if exclude is None:
             exclude = set()
-
 
         phenotype_matrix = np.zeros((self.n_participants, 2), dtype=float)
 
