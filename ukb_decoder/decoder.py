@@ -26,8 +26,8 @@ class Decoder:
 
         self.codes_usable_as_ordinal_values = {
             7,        # 0 - 1
+            8,        # month of year, same as calendar year
             9,        # Sex: 0: female, 1: male
-            52,       # month of birth. Same as calendar month.
             96,       # liking of food in a scale from 1 to 8
             339,      # codes indicating being bothered by something, -600  to -602. -600 means not bothered
             408,      # Pain scale 0 - 10, 0 is No pain
