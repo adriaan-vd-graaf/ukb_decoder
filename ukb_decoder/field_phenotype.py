@@ -24,14 +24,14 @@ class QuantPhenoField(DataField):
         self.instances = int(self.instances)
         self.array = int(self.array)
 
-        if not self.value_type in {"Continuous", "Integer"}:
+        if not self.value_type in {"Continuous", "Integer", "Categorical single"}:
             raise ValueError(f'{self.item_type} is not implemented')
 
         self.n_participants = n_participants
 
         if self.value_type == "Continuous":
             self.dtype = float
-        elif self.value_type == "Integer":
+        elif self.value_type in {"Integer", "Categorical single"}:
             self.dtype = int
 
         self.phenotype_matrix = np.zeros((self.n_participants, self.instances*self.array), dtype=self.dtype)
