@@ -1,5 +1,6 @@
 
 import copy
+import numpy as np
 from . field_phenotype import *
 from . import data_codings
 from . import data_fields
@@ -97,7 +98,26 @@ class Decoder:
         assert(len(self.decoder_to_ordinal.keys() & self.truly_categorical_single_categorical_values) == 0)
 
     def decode_field(self, field_id, data_vector=None, converter=None):
-        return self.decode_field_into_numeric(field_id, data_vector, converter)
+        field_of_interest = self.data_fields[field_id]
+
+        if field_of_interest.value_type in {'Integer', 'Continuous', 'Categorical single'}:
+            return self.decode_field_into_numeric(field_id, data_vector, converter)
+        elif field_of_interest.value_type in {'Categorical multiple'}:
+            return self.decode_field_into_coded_str(field_id, data_vector, converter)
+
+    def decode_field_into_coded_str(self, field_id, data_vector=None, converter=None):
+
+        if converter is not None:
+            raise NotImplementedError
+
+        field_of_interest = self.data_fields[field_id]
+        value_type = field_of_interest.value_type
+
+        if value_type in {'Categorical Multiple', 'Categorical single'}:
+            converted_data = self._convert_into_str_coding(field_of_interest, data_vector)
+        else:
+            raise ValueError("Only types allowed for direct string matching are _Categorical Multiple_ and _Categorical single_")
+
 
     def decode_field_into_numeric(self, field_id, data_vector=None, converter=None):
 
@@ -204,6 +224,12 @@ class Decoder:
         else:
             return self._decode_all_listed_codings_as_nan(field_of_interest, data_vector)
 
+    def _convert_into_str_coding(self, field_of_interest: data_fields.DataField, data_vector):
+        if field_of_interest.coding == '':
+            raise ValueError("Did not find a data coding, unable to turn it into str")
+        else:
+            return [self.data_coding.data_codings[field_of_interest.coding].meaning_of_value(x) for x in data_vector]
+
     def _decode_all_listed_codings_as_nan(self, field_of_interest, data_vector):
         """
         This will decode all listed codings as nan.
@@ -247,7 +273,6 @@ class Decoder:
 
 
     def _print_categorical_single_decoding(self,field_of_interest):
-
 
         field_coding = int(field_of_interest.coding)
 

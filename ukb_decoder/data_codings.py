@@ -28,7 +28,7 @@ class UKBDataCoding:
 
     def add_code_point(self, value, meaning):
         if value in self.code_values.keys():
-            self.code_values[value].meaning += b"\nOr: " + meaning #sometimes, this occurs multiple times.
+            self.code_values[value].meaning += b" ~Or:~ " + meaning #sometimes, this occurs multiple times.
 
         else:
             self.code_values[value] = UKBDataCodingValue(self.coding, value, meaning)
