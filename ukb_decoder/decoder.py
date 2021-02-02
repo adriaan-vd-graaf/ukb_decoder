@@ -26,6 +26,7 @@ class Decoder:
 
         self.codes_usable_as_ordinal_values = {
             7,        #0 - 1
+            52,       # month of birth. Same as calendar month.
             96,       # liking of food in a scale from 1 to 8
             339,      # codes indicating being bothered by something, -600  to -602. -600 means not bothered
             408,      # Pain scale 0 - 10, 0 is No pain
@@ -46,9 +47,11 @@ class Decoder:
         }
 
         self.truly_categorical_single_categorical_values = {
+            9,
             1862,  # ced diagnosis types.
             2730,  # speed of IBS symptoms
             7310,  # infection diagnosed along with IBS symptoms.
+            22006, # genetic ethnic grouping
             100015, #type of milk consumed
 
         }
