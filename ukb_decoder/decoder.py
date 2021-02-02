@@ -39,6 +39,7 @@ class Decoder:
             871,      # 0 - 6, frequency scale, 0 means never, 6 means every day.
             913,      # 0 - 10, number of days with pain. 10 is 10 days of pain
             950,      # -500 to -504, Never to always scale. -504 is always
+            1002,     # Caucasian genetic grouping
             1018,     # -600 to -602, Not bothered to bothered scale, -600 is bothered.
             1021,     # No 0, yes   1, scale
             1022,     # No 0, yes   1, scale
