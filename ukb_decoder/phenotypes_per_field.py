@@ -124,7 +124,7 @@ class QuantPhenoField(DataField):
 
         for field, instance, array in fields_instance_array:
             if field == self.field_id:
-                self.add_phenotype_array(int(instance), int(array), pandas_df[f'{field}-{instance}.{array}'])
+                self.add_phenotype_array(int(instance), int(array) + array_offset, pandas_df[f'{field}-{instance}.{array}'])
 
 
 
