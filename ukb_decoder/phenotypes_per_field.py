@@ -112,6 +112,16 @@ class QuantPhenoField(DataField):
             for x in colnames if x != "eid"
         ]
 
+        # Often array starts at 0, but sometimes it starts at 1 like for the genotype principal components.
+        array_values = [int(x[2]) for x in fields_instance_array if x[0] == self.field_id]
+
+        if len(set(array_values)) != self.array:
+            raise ValueError(f"Found {len(array_values)} array values, expected {self.array}")
+
+        array_offset = 0
+        if min(array_values) == 1:
+            array_offset = -1
+
         for field, instance, array in fields_instance_array:
             if field == self.field_id:
                 self.add_phenotype_array(int(instance), int(array), pandas_df[f'{field}-{instance}.{array}'])
